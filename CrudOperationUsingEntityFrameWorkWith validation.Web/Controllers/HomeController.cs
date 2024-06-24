@@ -59,6 +59,14 @@ namespace CrudOperationUsingEntityFrameWorkWith_validation.Web.Controllers
         }
 
 
+		[HttpPost]
+		public IActionResult Delete(int id)
+		{
+			var teacher = schoolContext.Teachers.Where(a => a.Id == id).FirstOrDefault();
+			schoolContext.Teachers.Remove(teacher);
+			schoolContext.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
 
 
@@ -79,8 +87,7 @@ namespace CrudOperationUsingEntityFrameWorkWith_validation.Web.Controllers
 
 
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
