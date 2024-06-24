@@ -19,7 +19,7 @@ namespace CrudOperationUsingEntityFrameWorkWith_validation.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(schoolContext.Teachers);
         }
 
         public IActionResult Privacy()
@@ -42,6 +42,20 @@ namespace CrudOperationUsingEntityFrameWorkWith_validation.Web.Controllers
             }
             else
                 return View();
+        }
+
+        public IActionResult Update(int id)
+        {
+            return View(schoolContext.Teachers.Where(a => a.Id == id).FirstOrDefault());
+        }
+
+        [HttpPost]
+        [ActionName("Update")]
+        public IActionResult Update_Post(Teacher teacher)
+        {
+            schoolContext.Teachers.Update(teacher);
+            schoolContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
 
